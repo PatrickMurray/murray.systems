@@ -1,3 +1,5 @@
 languageCode = "en-us"
 title = "murray.systems"
 baseurl = "https://murray.systems/"
+theme = "main"
+copyright = "Patrick Murray, All Rights Reserved."

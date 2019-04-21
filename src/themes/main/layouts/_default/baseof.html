@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+
+		<title>{{ .Title }}</title>
+
+		{{ $stylesheet := resources.Get "css/main.scss" | toCSS | minify | fingerprint }}
+		<link rel="stylesheet" href="{{ $stylesheet.Permalink }}" integrity="{{ $stylesheet.Data.Integrity }}">
+	</head>
+	<body>
+		{{ partial "header/header.html" . }}
+
+		<div id="content" class="container">
+			{{ block "main" . }}
+			{{ end }}
+		</div>
+
+		{{ partial "footer/footer.html" . }}
+	</body>
+</html>

@@ -1,0 +1,17 @@
+{{ define "main" }}
+
+
+<h1>Latest Posts</h1>
+
+{{ if eq (len .Pages) 0 }}
+	No recent posts.
+{{ else }}
+	<ul>
+	{{ range first 10 .Pages }}
+		<li><a href="{{ .URL }}">{{ .Title }}</a></li>
+	{{ end }}
+	<ul>
+{{ end }}
+
+
+{{ end }}
