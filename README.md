@@ -1,9 +1,23 @@
 # murray.systems
 
 
-## Generating
+## Infrastructure
 
+### Development
 
 ```bash
-hugo
+cd terraform
+terraform init
+terraform apply --auto-approve
+```
+
+
+## Website
+
+
+### Development
+
+```bash
+cd src
+hugo server
 ```
