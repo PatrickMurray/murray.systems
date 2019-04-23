@@ -95,6 +95,10 @@ resource "aws_acm_certificate" "certificate" {
 	domain_name       = "${var.domain_name}"
 	validation_method = "DNS"
 
+	subject_alternative_names = [
+		"www.${var.domain_name}"
+	]
+
 	tags = {
 		Environment = "${var.environment}"
 	}
@@ -111,7 +115,7 @@ data "aws_route53_zone" "dns_zone" {
 }
 
 
-resource "aws_route53_record" "certificate_verification" {
+resource "aws_route53_record" "certificate_verification_root" {
 	name    = "${aws_acm_certificate.certificate.domain_validation_options.0.resource_record_name}"
 	type    = "${aws_acm_certificate.certificate.domain_validation_options.0.resource_record_type}"
 	zone_id = "${data.aws_route53_zone.dns_zone.id}"
@@ -122,10 +126,22 @@ resource "aws_route53_record" "certificate_verification" {
 }
 
 
+resource "aws_route53_record" "certificate_verification_www" {
+	name    = "${aws_acm_certificate.certificate.domain_validation_options.1.resource_record_name}"
+	type    = "${aws_acm_certificate.certificate.domain_validation_options.1.resource_record_type}"
+	zone_id = "${data.aws_route53_zone.dns_zone.id}"
+	records = [
+		"${aws_acm_certificate.certificate.domain_validation_options.1.resource_record_value}"
+	],
+	ttl     = 60
+}
+
+
 resource "aws_acm_certificate_validation" "certificate_validation" {
 	certificate_arn = "${aws_acm_certificate.certificate.arn}"
 	validation_record_fqdns = [
-		"${aws_route53_record.certificate_verification.fqdn}"
+		"${aws_route53_record.certificate_verification_root.fqdn}",
+		"${aws_route53_record.certificate_verification_www.fqdn}"
 	]
 }
 
@@ -138,7 +154,8 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 	default_root_object = "${var.index_document}"
 
 	aliases = [
-		"${var.domain_name}"
+		"${var.domain_name}",
+		"www.${var.domain_name}"
 	]
 
 	origin {

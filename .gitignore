@@ -1,3 +1,5 @@
-*.tfstate
-*.backup
-*/.terraform
+terraform/.terraform
+terraform/*.tfstate
+terraform/*.backup
+src/resources
+src/public
