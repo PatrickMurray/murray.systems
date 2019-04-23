@@ -5,20 +5,21 @@ HUGO_FLAGS := --minify
 PUBLIC_PATH := public
 RESOURCES_PATH = resources
 
-BUCKET_URL := "s3://murray-systems.s3-us-east-1.amazonaws.com"
+BUCKET_URL := "s3://murray-systems"
+
 
 build:
 	hugo             \
 	  ${HUGO_FLAGS}  \
 	  --baseURL=${BASE_URL};
-	fclean	
 
 
-deploy: all
+deploy: build
 	aws s3 sync --delete ${PUBLIC_PATH} ${BUCKET_URL};
 
+
 clean:
-	$(RM) -rf ${PUBLIC_PATH}
+	$(RM) -rf ${RESOURCES_PATH}
 
 
 fclean: clean
