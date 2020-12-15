@@ -1,29 +1,30 @@
 {{ define "main" }}
 
 
-
-
 <article>
-	<h1>{{ .Title }}</h1>
+        <header>
+                <div class="container">
+                        <h1>{{ .Title }}</h1>
+                        <!-- TODO: Subtitle -->
 
-	<p>
-		by: {{ .Params.author }}<br>	
-		on: {{ dateFormat "2006-01-02" .Date }}
-	</p>
+                        {{ if not .Date.IsZero }}
+                                Published: {{ .Date.Format "2006-01-02" }}
+                        {{ end }}
+                </div>
+        </header>
 
-	{{ if .Params.table_of_contents }}
-		<hr>
+        <section>
+                <div class="container">
+                        {{ if (and (isset .Params "toc") (.Params.toc)) }}
+                                <aside>
+                                        <h2>Contents</h2>
+                                        {{ .TableOfContents }}
+                                </aside>
+                        {{ end }}
 
-		<aside>
-			<h2>Contents</h2>
-	
-			{{ .TableOfContents }}
-		</aside>
-
-		<hr>
-	{{ end }}
-
-	{{ .Content }}
+	                {{ .Content }}
+                </div>
+        </section>
 </article>
 
 

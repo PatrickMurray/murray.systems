@@ -1,17 +1,33 @@
 {{ define "main" }}
 
+<article>
+        {{ if .Title }}
+                <header>
+                        <div class="container">
+                                <h1>{{ .Title }}</h1>
+                        <div>
+                </header>
 
-<h1>Latest Posts</h1>
+                {{ if .Content }}
+                        <section>
+                                <div class="container">
+                                        {{ if .Content }}
+                                                {{ .Content }}
+                                        {{ end }}
+                                </div>
+                        </section>
+                {{ end }}
+        {{ end }}
 
-{{ if eq (len .Pages) 0 }}
-	No recent posts.
-{{ else }}
-	<ul>
-	{{ range first 10 .Pages }}
-		<li><a href="{{ .URL }}">{{ .Title }}</a></li>
-	{{ end }}
-	<ul>
-{{ end }}
-
+        <div class="container">
+                <h2>Posts</h2>
+                {{ range .Site.RegularPages }}
+                        <p>
+                                {{ .Date.Format "2006-01-02" }}<br>
+                                <a href="{{ .Permalink }}">{{ .Title }}</a>
+                        </p>
+                {{ end }}
+        </div>
+</div>
 
 {{ end }}

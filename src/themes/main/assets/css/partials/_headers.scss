@@ -9,10 +9,22 @@ h6 {
 }
 
 
+$header_base:   3.650ex;
+$header_scalar: 0.750;
+$header_min:    1.250ex;
 
-h1 { font-size: 1.500em }
-h2 { font-size: 1.250em }
-h3 { font-size: 1.125em }
-h4 { font-size: 1.000em }
-h5 { font-size: 1.000em }
-h6 { font-size: 1.000em }
+
+$header1: max($header_base, $header_min);
+$header2: max($header1 * $header_scalar, $header_min);
+$header3: max($header2 * $header_scalar, $header_min);
+$header4: max($header3 * $header_scalar, $header_min);
+$header5: max($header4 * $header_scalar, $header_min);
+$header6: max($header5 * $header_scalar, $header_min);
+
+
+h1 { font-size: $header1; }
+h2 { font-size: $header2; }
+h3 { font-size: $header3; }
+h4 { font-size: $header4; }
+h5 { font-size: $header5; }
+h6 { font-size: $header6; }

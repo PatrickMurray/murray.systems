@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ .Site.LanguageCode | default "en" }}">
 	<head>
-		<meta charset="utf-8">
-
-		<title>{{ .Title }}</title>
+                {{ with .Title }}
+		        <title>{{ . }} | murray.systems</title>
+                {{ else }}
+                        <title>murray.systems</title>
+                {{ end }}
+                
+                {{ partial "layout/head/metadata.html" }}
 
 		{{ $stylesheet := resources.Get "css/main.scss" | toCSS | minify | fingerprint }}
-		<link rel="stylesheet" href="{{ $stylesheet.Permalink }}" integrity="{{ $stylesheet.Data.Integrity }}">
-
-		<meta name="viewport" content= "width=device-width, initial-scale=1.0"> 
+		<link rel="stylesheet" href="{{ $stylesheet.Permalink | relURL }}" integrity="{{ $stylesheet.Data.Integrity }}">
 	</head>
 	<body>
-		{{ partial "header/header.html" . }}
+		{{ partial "layout/header/header.html" . }}
 
-		<div id="content" class="container">
-			{{ block "main" . }}
-			{{ end }}
-		</div>
+                <main>
+        		{{ block "main" . }}
+	        	{{ end }}
+                </main>
 
-		{{ partial "footer/footer.html" . }}
+		{{ partial "layout/footer/footer.html" . }}
 	</body>
 </html>

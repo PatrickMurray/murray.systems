@@ -1,12 +1,19 @@
-// For `pre` code-blocks, apply the padding and background to the `pre` tag;
-// however, for in-line `code` blocks (those not immediately within a `pre`
-// tag, apply the same properties.
-
-// NOTE - we must avoid targeting `pre code`, while targeting `pre` and in-line
-// `code`
-
 pre,
-:not(pre) > code {
-	padding: 0.25em;
-	background: rgba(0, 0, 0, 0.05);
+code {
+        background: rgba(0, 0, 0, 0.1);
+}
+
+
+pre {
+        padding: 2em;
+        overflow-x: auto;
+
+        & > code {
+                background: transparent;
+        }
+}
+
+
+code {
+        padding: 0.1em;
 }

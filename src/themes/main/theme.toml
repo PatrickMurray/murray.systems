@@ -3,13 +3,11 @@
 
 name = "Main"
 license = "MIT"
-licenselink = "https://github.com/yourname/yourtheme/blob/master/LICENSE.md"
-description = ""
-homepage = "http://siteforthistheme.com/"
-tags = ["", ""]
-features = ["", ""]
+licenselink = "https://github.com/patrickmurray/murray.systems/LICENSE"
+description = "The personal web presence of Patrick Murray."
+homepage = "https://murray.systems/"
 min_version = 0.18
 
 [author]
   name = "Patrick Murray"
-  homepage = ""
+  homepage = "https://murray.systems/"
