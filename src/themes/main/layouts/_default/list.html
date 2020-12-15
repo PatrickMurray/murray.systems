@@ -1,33 +1,40 @@
 {{ define "main" }}
 
-<article>
-        {{ if .Title }}
+
+{{ if .Title }}
+        <article id="article">
                 <header>
                         <div class="container">
                                 <h1>{{ .Title }}</h1>
                         <div>
                 </header>
 
-                {{ if .Content }}
+                {{ with .Content }}
                         <section>
                                 <div class="container">
-                                        {{ if .Content }}
-                                                {{ .Content }}
-                                        {{ end }}
+                                        {{ . }}
                                 </div>
                         </section>
                 {{ end }}
-        {{ end }}
+        </article>
+{{ end }}
 
+
+<section id="list">
         <div class="container">
                 <h2>Posts</h2>
-                {{ range .Site.RegularPages }}
-                        <p>
-                                {{ .Date.Format "2006-01-02" }}<br>
-                                <a href="{{ .Permalink }}">{{ .Title }}</a>
-                        </p>
+                {{ if (eq (len .Site.RegularPages) 0) }}
+                        <p>No recent posts.</p>
+                {{ else }}
+                        {{ range .Site.RegularPages }}
+                                <p>
+                                        {{ .Date.Format "2006-01-02" }}<br>
+                                        <a href="{{ .Permalink }}">{{ .Title }}</a>
+                                </p>
+                        {{ end }}
                 {{ end }}
         </div>
-</div>
+</section>
+
 
 {{ end }}

@@ -1,14 +1,11 @@
 <footer id="footer">
 	<div class="container">
-		&copy; {{ now.Format "2006" }} {{ .Site.Copyright }}
-
-                {{ range .Site.Menus.main }}
-                        {{ .URL }}
-                        {{ .Title }}
-                {{ end }}
-
-                <div>
-                        Last updated: {{ now.Format "January 2, 2006" }}
-                </div>
+		<p>
+                        &copy; {{ now.Format "2006" }} {{ .Site.Copyright }}<br>
+                        
+                        <small>
+                                Last Updated: {{ now.Format "2006-01-02 15:04 UTC" }}
+                        </small>
+                </p>
 	</div>
 </footer>

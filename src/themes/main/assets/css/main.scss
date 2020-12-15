@@ -16,16 +16,9 @@ body {
 
         font-family: monospace;
 	font-size: 12pt;
-
-
-	#header .container,
-	#footer .container {
-		padding-top: 1em;
-		padding-bottom: 1em;
-	}
-
-
-	.container {
+	
+        
+        .container {
 		width: 100%;
                 max-width: $container_maxwidth;
 
@@ -34,6 +27,13 @@ body {
 
 		padding-left: 1em;
 		padding-right: 1em;
+	}
+
+
+	#header .container,
+	#footer .container {
+		padding-top: 1em;
+		padding-bottom: 1em;
 	}
 
 
@@ -55,6 +55,7 @@ body {
 			flex-direction: row;
 			justify-content: space-between;
 
+
 			#brand {
                                 background: $header_foreground;
                                 color: $header_background;
@@ -62,9 +63,11 @@ body {
                                 padding: 0.750em;
 			}
 
+
 			nav {
                                 display: flex;
                                 align-items: center;
+
 
                                 a {
                                         padding: 0.500em;
@@ -76,6 +79,7 @@ body {
                                         }
                                 }
 
+
                                 & > a:not(:first-of-type) {
                                         margin-left: 0.750em;
                                 }
@@ -84,33 +88,39 @@ body {
 	}
 
 
-        main {
+        #main {
                 flex: 1;
 
                 color: $main_foreground;
                 background: $main_background;
                 
-                article {
-                        header .container,
-                        section .container {
-                                padding-top: 2em;
-                                padding-bottom: 2em;
+
+                #article {
+                        header,
+                        section {
+                                .container  {
+                                        padding-top: 2em;
+                                        padding-bottom: 2em;
+                                }
                         }
+
 
                         header {
                                 color: $main_background;
                                 background: $main_foreground;
                         }
+                }
 
-                        section {
-                        }
+
+                #list {
+                        background: red;
                 }
         }
 
 
 
 
-	footer {
+	#footer {
                 color: $footer_foreground;
                 background: $footer_background;
 

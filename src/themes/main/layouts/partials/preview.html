@@ -1,8 +1,0 @@
-<p class="post preview">
-        {{ if not .Date.IsZero }}
-                <div>{{ dateFormat "2006-01-02" .Date }}</div>
-        {{ end }}
-        <strong>
-                <a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
-        </strong>
-</p>
