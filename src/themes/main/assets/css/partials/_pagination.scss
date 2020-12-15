@@ -6,6 +6,7 @@ ul.pagination {
         flex-direction: row;
         justify-content: center;
 
+
         li.page-item {
                 color: $header_background;
 
@@ -13,13 +14,16 @@ ul.pagination {
 
                 padding: 1em;
 
+
                 &.active {
                         color: $header_foreground;
                         background: $header_background;
                 }
-                
+
+
                 &.disabled {
                 }
+
 
                 .page-link {
                         text-decoration: none;
