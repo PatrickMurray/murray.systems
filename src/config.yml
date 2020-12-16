@@ -1,0 +1,11 @@
+---
+title: murray.systems
+baseurl: 'https://murray.systems/'
+copyright: 'Patrick Murray, All Rights Reserved.'
+
+languageCode: en-us
+theme: main
+
+disableKinds:
+  - taxonomy
+  - taxonomyTerm

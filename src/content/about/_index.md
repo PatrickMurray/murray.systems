@@ -40,19 +40,29 @@ plaintext = plaintext_bytes.decode("utf-8")
 print(f"Email: { plaintext }")
 ```
 
-
+<!--
 ### PGP Public Key
 
 If you are paranoid about privacy and have accepted that all electronic
 communications are likely being passively monitored by [Nation State actors](https://en.wikipedia.org/wiki/Five_Eyes),
 you are more than welcome to attempt to buck the system and encrypt your email
-against my [PGP public key](); however, prior to sending me an encrypted
-message, I would encourage you to review the incredible defense-in-depth
-security measures that modern computer systems have implemented across their
-various components, including but not limited to:
+against my [PGP public key](/pgp/patrick_murray_latest.asc).
+
+Prior to sending any encrypted messages, I would strongly encourage you to
+review the defense-in-depth security measures that modern computer systems have
+implemented across their various components, including but not limited to:
 [hardware](https://www.bloomberg.com/news/features/2018-10-04/the-big-hack-how-china-used-a-tiny-chip-to-infiltrate-america-s-top-companies),
 [chipsets](https://hackaday.com/2017/12/11/what-you-need-to-know-about-the-intel-management-engine/),
 [firmware](https://nsa.gov1.info/dni/nsa-ant-catalog/servers/index.html#DEITYBOUNCE),
 [storage devices](https://www.vice.com/en/article/ypwk5v/the-only-way-you-can-delete-this-nsa-malware-is-to-smash-your-hard-drive-to-bits),
 [operating systems](https://en.wikipedia.org/wiki/NSAKEY), and
 [software](https://krebsonsecurity.com/2020/12/u-s-treasury-commerce-depts-hacked-through-solarwinds-compromise/).
+
+
+#### Key History
+
+| Key | Key ID | Fingerprint | Issued | Revoked |
+|-----|--------|-------------|--------|---------|
+| Public Key | `FOOBAR` | `DEADBEEF` | 2020-12-15 | 2020-12-16 |
+
+-->

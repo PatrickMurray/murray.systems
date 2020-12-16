@@ -6,20 +6,24 @@
                 <div class="container">
                         <h1>{{ .Title }}</h1>
                         <!-- TODO: Subtitle -->
-
-                        {{ if not .Date.IsZero }}
-                                Published: {{ .Date.Format "2006-01-02" }}
-                        {{ end }}
                 </div>
         </header>
 
         <section>
                 <div class="container">
+                        {{ if not .Date.IsZero }}
+                                <p>
+                                        <em>Published: {{ .Date.Format "2006-01-02" }}</em>
+                                </p>
+                        {{ end }}
+
                         {{ if (and (isset .Params "toc") (.Params.toc)) }}
+                                <hr>
                                 <aside>
-                                        <h2>Contents</h2>
+                                        <h3>Contents</h3>
                                         {{ .TableOfContents }}
                                 </aside>
+                                <hr>
                         {{ end }}
 
 	                {{ .Content }}

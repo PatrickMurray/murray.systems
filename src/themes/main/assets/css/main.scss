@@ -93,26 +93,35 @@ body {
 
                 color: $main_foreground;
                 background: $main_background;
-                
+
+
+                #article,
+                #list {
+                }
+
 
                 #article {
                         header,
                         section {
-                                .container  {
-                                        padding-top: 2em;
+                                .container {
+                                        padding-top:    2em;
                                         padding-bottom: 2em;
                                 }
                         }
-
-
+                        
+                        
                         header {
                                 color: $main_background;
                                 background: $main_foreground;
                         }
                 }
 
-
+                
                 #list {
+                        .container {
+                                padding-top:    1em;
+                                padding-bottom: 1em;
+                        }
                 }
         }
 
