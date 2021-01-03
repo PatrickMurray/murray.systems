@@ -57,7 +57,7 @@ resource "aws_s3_bucket" "static_bucket" {
 	"Version": "2012-10-17",
 	"Statement": [
 		{
-			"Sid": "public_bucket_policy_promary",
+			"Sid": "public_bucket_policy_primary",
 			"Action": [
 				"s3:GetObject"
 			],
@@ -153,8 +153,18 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 	]
 
 	origin {
-		domain_name = aws_s3_bucket.static_bucket.bucket_domain_name
+		domain_name = "${var.static_bucket}.s3-website-${var.region}.amazonaws.com"
 		origin_id   = var.domain_name
+
+                custom_origin_config {
+                        http_port = 80
+                        https_port = 443
+                        origin_protocol_policy = "http-only"
+                        origin_ssl_protocols = [
+                                "TLSv1.1",
+                                "TLSv1.2"
+                        ]
+                }
 	}
 
 	default_cache_behavior {

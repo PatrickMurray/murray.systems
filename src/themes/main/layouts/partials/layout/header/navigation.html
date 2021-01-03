@@ -1,5 +1,5 @@
 <nav>
         {{ range .Site.Sections }}
-                <a href="{{ .Permalink }}">{{ .Title }}</a>
+                <a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
         {{ end }}
 </nav>

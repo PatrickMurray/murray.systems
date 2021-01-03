@@ -35,7 +35,7 @@
                         {{ range .Site.RegularPages }}
                                 <p>
                                         {{ .Date.Format "2006-01-02" }}<br>
-                                        <a href="{{ .Permalink }}">{{ .Title }}</a>
+                                        <a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
                                 </p>
                         {{ end }}
                 {{ end }}
