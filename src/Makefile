@@ -5,7 +5,8 @@ HUGO_FLAGS := --minify
 PUBLIC_PATH := public
 RESOURCES_PATH = resources
 
-BUCKET_URL := "s3://murray-systems"
+AWS_BUCKET_URL := "s3://murray-systems"
+AWS_CLOUDFRONT_DISTRIBUTION := "E2ZR0FND2MJZ63"
 
 
 build:
@@ -15,7 +16,13 @@ build:
 
 
 deploy: build
-	aws s3 sync --delete ${PUBLIC_PATH} ${BUCKET_URL};
+	aws s3 sync  \
+	  --delete   \
+	  ${PUBLIC_PATH} ${AWS_BUCKET_URL};
+	
+	aws cloudfront create-invalidation                  \
+	  --distribution-id ${AWS_CLOUDFRONT_DISTRIBUTION}  \
+	  --paths "/*";
 
 
 clean:
