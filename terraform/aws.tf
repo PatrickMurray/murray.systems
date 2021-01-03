@@ -3,8 +3,13 @@ variable "region" {
 }
 
 
-variable "logging_bucket" {
-	default = "murray-systems-log-bucket"
+variable "environment" {
+        default = "prod"
+}
+
+
+variable "domain_name" {
+	default = "murray.systems"
 }
 
 
@@ -13,13 +18,18 @@ variable "static_bucket" {
 }
 
 
-variable "environment" {
-	default = "prod"
+variable "logging_bucket" {
+	default = "murray-systems-logs"
 }
 
 
-variable "logging_prefix" {
-	default = "murray-systems/"
+variable "s3_logging_prefix" {
+	default = "murray-systems-s3/"
+}
+
+
+variable "cloudfront_logging_prefix" {
+        default = "murray-systems-cloudfront/"
 }
 
 
@@ -33,11 +43,6 @@ variable "error_document" {
 }
 
 
-variable "domain_name" {
-	default = "murray.systems"
-}
-
-
 provider "aws" {
 	region = var.region
 }
@@ -46,6 +51,11 @@ provider "aws" {
 resource "aws_s3_bucket" "logging_bucket" {
 	bucket = var.logging_bucket
 	acl    = "log-delivery-write"
+
+        tags = {
+                Name        = var.logging_bucket
+                Environment = var.environment
+        }
 }
 
 
@@ -81,7 +91,7 @@ EOF
 
 	logging {
 		target_bucket = aws_s3_bucket.logging_bucket.id
-		target_prefix = var.logging_prefix
+		target_prefix = var.s3_logging_prefix
 	}
 
 	website {
@@ -127,7 +137,9 @@ resource "aws_route53_record" "certificate_verification" {
 	name            = each.value.name
 	type            = each.value.type
 	zone_id         = data.aws_route53_zone.dns_zone.id
-	records         = [each.value.record]
+	records         = [
+                each.value.record
+        ]
 	ttl             = 60
         allow_overwrite = true
 }
@@ -198,12 +210,17 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 		}
 	}
 
-	// TODO - logging
-
 	viewer_certificate {
 		acm_certificate_arn = aws_acm_certificate.certificate.arn
 		ssl_support_method  = "sni-only"
 	}
+
+        logging_config {
+                bucket = "${var.logging_bucket}.s3.amazonaws.com"
+                prefix = var.cloudfront_logging_prefix
+                
+                include_cookies = false
+        }
 
         tags = {
 		Environment = var.environment
