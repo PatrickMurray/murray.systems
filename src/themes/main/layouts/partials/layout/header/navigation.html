@@ -1,5 +1,5 @@
 <nav>
-        {{ range .Site.Sections }}
+        {{ range sort .Site.Sections "Title" }}
                 <a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
         {{ end }}
 </nav>
