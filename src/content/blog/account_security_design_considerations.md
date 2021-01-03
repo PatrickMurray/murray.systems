@@ -1,16 +1,29 @@
 ---
-title: Account Security Design Considerations
+title: Access Control System Design Considerations
 date: 2021-01-03
 
 toc: True
 ---
 
-## Scope
 
-Due to the incredibly broad nature of the information security field, the
-discussion within this post is limited exclusively to securing user accounts on
-Internet services (i.e. public or internal web & mobile applications); however,
-many of the high-level concepts  may be applied to other areas of security.
+## Purpose & Scope
+
+Due to the incredibly broad nature of the information security field, this post
+is strictly limited to discussing the considerations, design decisions, and
+potential regulatory requirements that should be assessed prior to implementing
+an access control system. Furthermore, this post was written under the
+presumption that the access control system will be implemented for a web/mobile
+application; however, many of the high-level concepts may be extended to other
+information systems.
+
+
+## Disclaimer
+
+It is strongly encouraged that both your organization's Information Security
+and Legal teams be consulted prior to finalizing your access control
+system's requirements and architecture proposal. Your organization may be
+subject to previously unknown regulatory, industry, or contractual obligations
+which may impact the requirements for the access control system being designed.
 
 
 ## Background
@@ -18,8 +31,8 @@ many of the high-level concepts  may be applied to other areas of security.
 Over the last decade, the threat of both cyber attacks and their repercussions
 to organizations has grown tremendously.
 
-It is no longer acceptable for organizations to disregard information security
-best-practices and gaps in their security posture.
+It is no longer acceptable for any organization to disregard information
+security best-practices and gaps in their security posture.
 
 Several jurisdictions have enacted legislation mandating that organizations
 maintain adequate information security programs, policies, and safeguards to
@@ -277,5 +290,13 @@ PCIDSS
 TODO
 
 
+
+retention
+
+evidence
+
+
+logging 
+        (username?)
 
 
