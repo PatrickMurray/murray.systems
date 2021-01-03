@@ -115,36 +115,30 @@ data "aws_route53_zone" "dns_zone" {
 }
 
 
-resource "aws_route53_record" "certificate_verification_root" {
-	name    = aws_acm_certificate.certificate.domain_validation_options.0.resource_record_name
-	type    = aws_acm_certificate.certificate.domain_validation_options.0.resource_record_type
-	zone_id = data.aws_route53_zone.dns_zone.id
-	records = [
-                aws_acm_certificate.certificate.domain_validation_options.0.resource_record_value
-        ]
-	ttl     = 60
-}
+resource "aws_route53_record" "certificate_verification" {
+        for_each = {
+                for dvo in aws_acm_certificate.certificate.domain_validation_options : dvo.domain_name => {
+                        name   = dvo.resource_record_name
+                        record = dvo.resource_record_value
+                        type   = dvo.resource_record_type
+                }
+        }
 
-
-resource "aws_route53_record" "certificate_verification_www" {
-	name    = aws_acm_certificate.certificate.domain_validation_options.1.resource_record_name
-	type    = aws_acm_certificate.certificate.domain_validation_options.1.resource_record_type
-	zone_id = data.aws_route53_zone.dns_zone.id
-	records = [
-		aws_acm_certificate.certificate.domain_validation_options.1.resource_record_value
-	]
-	ttl     = 60
+	name            = each.value.name
+	type            = each.value.type
+	zone_id         = data.aws_route53_zone.dns_zone.id
+	records         = [each.value.record]
+	ttl             = 60
+        allow_overwrite = true
 }
 
 
 resource "aws_acm_certificate_validation" "certificate_validation" {
 	certificate_arn = aws_acm_certificate.certificate.arn
 	validation_record_fqdns = [
-		aws_route53_record.certificate_verification_root.fqdn,
-		aws_route53_record.certificate_verification_www.fqdn
+                for record in aws_route53_record.certificate_verification : record.fqdn
 	]
 }
-
 
 
 resource "aws_cloudfront_distribution" "cloudfront_distribution" {
@@ -200,14 +194,18 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 		acm_certificate_arn = aws_acm_certificate.certificate.arn
 		ssl_support_method  = "sni-only"
 	}
+
+        tags = {
+		Environment = var.environment
+        }
 }
 
 
-
 resource "aws_route53_record" "root_domain_ipv4" {
-	zone_id = data.aws_route53_zone.dns_zone.id
-	name    = var.domain_name
-	type    = "A"
+	zone_id         = data.aws_route53_zone.dns_zone.id
+	name            = var.domain_name
+	type            = "A"
+        allow_overwrite = true
 
 	alias {
 		zone_id = aws_cloudfront_distribution.cloudfront_distribution.hosted_zone_id
@@ -218,9 +216,10 @@ resource "aws_route53_record" "root_domain_ipv4" {
 
 
 resource "aws_route53_record" "root_domain_ipv6" {
-	zone_id = data.aws_route53_zone.dns_zone.id
-	name    = var.domain_name
-	type    = "AAAA"
+	zone_id         = data.aws_route53_zone.dns_zone.id
+	name            = var.domain_name
+	type            = "AAAA"
+        allow_overwrite = true
 
 	alias {
 		zone_id = aws_cloudfront_distribution.cloudfront_distribution.hosted_zone_id
@@ -231,9 +230,10 @@ resource "aws_route53_record" "root_domain_ipv6" {
 
 
 resource "aws_route53_record" "www_domain_ipv4" {
-	zone_id = data.aws_route53_zone.dns_zone.id
-	name    = "www"
-	type    = "CNAME"
+	zone_id         = data.aws_route53_zone.dns_zone.id
+	name            = "www"
+	type            = "CNAME"
+        allow_overwrite = true
 
 	alias {
 		zone_id = aws_cloudfront_distribution.cloudfront_distribution.hosted_zone_id
