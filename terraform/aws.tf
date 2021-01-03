@@ -39,7 +39,7 @@ variable "index_document" {
 
 
 variable "error_document" {
-	default = "error.html"
+	default = "404.html"
 }
 
 
