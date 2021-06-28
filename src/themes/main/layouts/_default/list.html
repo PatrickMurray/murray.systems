@@ -18,29 +18,33 @@
                 {{ end }}
         </article>
 
+{{ end }}
+
+
+{{ if (and (isset .Params "list_posts") (not .Params.list_posts)) }}
+{{ else }}
         {{ if .Content }}
                 <div class="container">
                         <hr>
                 </div>
         {{ end }}
-{{ end }}
-
-
-<section id="list">
-        <div class="container">
-                <h2>Posts</h2>
-                {{ if (eq (len .Site.RegularPages) 0) }}
-                        <p>No recent posts.</p>
-                {{ else }}
-                        {{ range .Site.RegularPages }}
-                                <p>
-                                        {{ .Date.Format "2006-01-02" }}<br>
-                                        <a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
-                                </p>
+        
+        <section id="list">
+                <div class="container">
+                        <h2>Posts</h2>
+                        {{ if (eq (len .Site.RegularPages) 0) }}
+                                <p>No recent posts.</p>
+                        {{ else }}
+                                {{ range .Site.RegularPages }}
+                                        <p>
+                                                {{ .Date.Format "2006-01-02" }}<br>
+                                                <a href="{{ .Permalink | relURL }}">{{ .Title }}</a>
+                                        </p>
+                                {{ end }}
                         {{ end }}
-                {{ end }}
-        </div>
-</section>
+                </div>
+        </section>
+{{ end }}
 
 
 {{ end }}

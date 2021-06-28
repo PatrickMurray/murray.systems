@@ -4,3 +4,4 @@ terraform/*.backup
 src/resources
 src/public
 *.swp
+*.bak

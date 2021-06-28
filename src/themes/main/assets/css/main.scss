@@ -14,7 +14,7 @@ body {
 	margin: 0;
 	padding: 0;
 
-        font-family: monospace;
+        font-family: sans-serif;
 	font-size: 12pt;
 	
         
@@ -57,6 +57,7 @@ body {
 
 
 			#brand {
+                                font-family: monospace;
                                 background: $header_foreground;
                                 color: $header_background;
 
