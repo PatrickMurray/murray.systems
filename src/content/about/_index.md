@@ -1,12 +1,14 @@
 ---
 title: About
+
+list_posts: False
 ---
 
 
 My name is Patrick Murray and I am a security and software engineer located in
 the New York City metropolitan area.
 
-I am currently employed at [Grubhub](https://grubhub.com/) as a Security
+I am currently employed at [Grubhub](https://grubhub.com/) as a Senior Security
 Engineer and have previous professional experience as a DevOps Intern at
 [iCIMS](https://icims.com/). I am not interested in any career opportunities at
 this time.

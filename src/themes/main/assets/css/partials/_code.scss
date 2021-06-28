@@ -1,19 +1,48 @@
-pre,
+// Source: https://css-tricks.com/styling-code-in-and-out-of-blocks/
+
+
+$_code_inline_color: black;
+$_code_inline_background: lightgray;
+
+$_code_block_color: black;
+$_code_block_background: lightgray;
+
+
+// All <code>
 code {
-        background: rgba(0, 0, 0, 0.1);
+        font-family: monospace;
 }
 
 
-pre {
-        padding: 2em;
-        overflow-x: auto;
-
+// Inline Code <code>
+p,
+li,
+dd,
+dt {
         & > code {
-                background: transparent;
+                color: $_code_inline_color;
+                background: $_code_inline_background;
+                
+                word-wrap: break-word;
+                box-decoration-break: clone;
+                padding: .1rem .3rem .2rem;
+                border-radius: .2rem;
         }
 }
 
 
-code {
-        padding: 0.1em;
+// Code Blocks <pre><code>
+pre {
+        // Note: !important is needed here to overwrite Hugo syntax highlighting
+        color: $_code_block_color !important;
+        background: $_code_block_background !important;
+        
+        padding: 2em;
+        overflow-x: auto;
+
+        & > code {
+                padding: 0 !important;
+                background: transparent;
+
+        }
 }

@@ -9,3 +9,9 @@ theme: main
 disableKinds:
   - taxonomy
   - taxonomyTerm
+
+
+markup:
+  highlight:
+    # Source: https://xyproto.github.io/splash/docs/all.html
+    style: bw
